@@ -9,7 +9,7 @@ let link;
 let counter = 1;
 let counter1 = 1;
 
-
+const buttonNode = document.querySelector('#button-load-more');
 const galeryNode = document.querySelector('#gallery');
 const inputNode = document.querySelector('#input');
 inputNode.addEventListener('change', async e => {
@@ -27,41 +27,51 @@ inputNode.addEventListener('change', async e => {
                 firstpos1: 90, firstpos2: 90 // 90px from the top, 90px from the left.
             })
         });
+        if (buttonNode.classList.contains('hide')) return false;
+        else {
+            buttonNode.classList.add('hide')
+        }
         // const stopFn = () => {
         //     return false;
-        // }
-    }
+        // buttonNode.classList.add('hide');
+        }
+    // }
     const message = document.querySelector('div[data-pnotify]');
     // console.log(message);
 
     galeryNode.innerHTML = galeryTpl(data);
     // console.log(e.target.value);
-    const buttonNode = document.querySelector('#button-load-more');
+    
     if (data.hits.length !== 0) {
         buttonNode.classList.remove('hide');
-        message.classList.add('hide');
-
+        // if (!message) return false;
+        // else {
+            // message.classList.add('hide');
+        // }
     }
 
 
 
     buttonNode.addEventListener('click', async e => {
         const element = document.querySelector('.button');
-        element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'end',
-        });
+        // element.scrollIntoView({
+        //     behavior: 'smooth',
+        //     block: 'end',
+        // });
         console.log(e.target);
-        console.log(link);
+        // console.log(link);
         counter++;
         const newData = await fetchPhotos(link, counter);
         console.log(newData);
         galeryNode.insertAdjacentHTML('beforeend', galeryTpl(newData));
-        window.scrollTo({
-            top: 1000 * counter1,
-            behavior: "smooth"
+        window.scrollBy({
+            top: 100,
+            left: 100,
+            behavior: 'smooth'
         });
+        console.log(counter1);
         counter1++;
+        console.log(counter1);
         // galeryNode.innerHTML = galeryTpl(newData);
     });
 
