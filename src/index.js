@@ -22,9 +22,10 @@ inputNode.addEventListener('change', async e => {
         error({
             text: "Not corect. Please try again!",
             name: "error_massage",
+            delay: 5000,
             stack: new Stack({
                 dir1: 'down', dir2: 'right', // Position from the top left corner.
-                firstpos1: 90, firstpos2: 90 // 90px from the top, 90px from the left.
+                firstpos1: 0, firstpos2: 700 // 90px from the top, 90px from the left.
             })
         });
         if (buttonNode.classList.contains('hide')) return false;
@@ -37,6 +38,7 @@ inputNode.addEventListener('change', async e => {
         }
     // }
     const message = document.querySelector('div[data-pnotify]');
+    message.classList.add('position');
     // console.log(message);
 
     galeryNode.innerHTML = galeryTpl(data);
@@ -44,10 +46,8 @@ inputNode.addEventListener('change', async e => {
     
     if (data.hits.length !== 0) {
         buttonNode.classList.remove('hide');
-        // if (!message) return false;
-        // else {
-            // message.classList.add('hide');
-        // }
+        if (message)
+            message.classList.add('hide');   
     }
 
 
